@@ -1,0 +1,80 @@
+.overlay {
+  background: #000;
+  height: 100vh;
+  left: 0;
+  opacity: 0.75;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 10;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #333;
+  min-width: 320px;
+  position: fixed;
+  left: 50%;
+  padding: 24px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 11;
+  opacity: 1;
+}
+
+.modal-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.modal-title h1 {
+  text-align:center;
+  text-transform:uppercase;
+  font-size:26px;
+  letter-spacing:1px;
+}
+
+p {
+  text-align:left;
+  font-size:16px; letter-spacing:1px;
+}
+
+.close {
+  width: 24px;
+  height: 24px;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.scale-config {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+}
+
+.scale-config-select {
+  display: flex;
+  flex-direction: column;
+}
+
+ul > li {
+  display: inline-block;
+  padding: 10px;
+  /*text-align:left;*/
+  font-size:14px;
+  letter-spacing:1px;
+  /* You can also add some margins here to make it look prettier */
+}
+
+.modal-footer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 50px;
+}
+
