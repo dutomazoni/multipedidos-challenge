@@ -34,8 +34,8 @@ import {NgIf} from "@angular/common";
           <p style="text-align: center">Peso inicial:</p>
           <p style="text-align: center">{{ currWeight ? currWeight + ' g' : '' }}</p>
           <button type="button" class="btn" [disabled]="disableBtn" (click)="sendMessage()">Novo Pedido</button>
-          <p style="font-weight: bold"> {{ receivedMessage ? 'Pedido recebido!' : '' }}</p>
-          <p>Peso estabilizado: {{ receivedMessage ? (receivedMessage + ' ' + receivedUnit) : ('') }}</p>
+          <p style="font-weight: bold"> {{ receivedWeight ? 'Pedido recebido!' : '' }}</p>
+          <p>Peso estabilizado: {{ receivedWeight ? (receivedWeight + ' ' + receivedUnit) : ('') }}</p>
           <p>Valor: {{ receivedValue ? 'R$ ' + receivedValue : '' }}</p>
           <div *ngIf="receivedMode==='Kg'">
             <p>Modo: <span style="color: #fa6400">{{ receivedMode }}</span></p>
@@ -60,7 +60,8 @@ import {NgIf} from "@angular/common";
 export class ModalComponent {
   selectedValue: string = 'g';
   currWeight: string = '0.00';
-  receivedMessage: string = ''
+  weightArray: number[] = [];
+  receivedWeight: string = ''
   receivedValue: string = ''
   receivedMode: string = ''
   receivedUnit: string = ''
@@ -82,24 +83,20 @@ export class ModalComponent {
 
   sendMessage(): void {
     this.disableBtn = true
-    this.websocketService.sendMessage({message: 'start', measureUnit: this.selectedValue, weight: this.currWeight });
+    this.websocketService.sendMessage({message: 'start', measureUnit: this.selectedValue, weight: this.weightArray });
   }
 
   ngOnInit() {
     this.websocketService.getMessages().subscribe((message) => {
       console.log('Received message:', {message});
       if(message.weight) {
-        if(message.unit === 'g') {
-          this.currWeight = message.firstWeight;
-        } else {
-          this.currWeight = (String((message.firstWeight * 1000).toFixed(2)));
-        }
         this.receivedValue = message.value;
         this.receivedMode = message.mode;
-        this.receivedMessage = message.weight
+        this.receivedWeight = message.weight
         this.receivedUnit = message.unit;
       } else {
-        this.currWeight = message;
+        this.currWeight = message.currWeight[0];
+        this.weightArray = message.currWeight
       }
       this.disableBtn = false
 

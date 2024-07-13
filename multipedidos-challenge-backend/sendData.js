@@ -22,7 +22,7 @@ function sendData(ws) {
       }
       // console.log(`Data sent: ${JSON.stringify(dataToSend)}`)
       console.log(`Data sent!`)
-      ws.send(JSON.stringify(dataToSend.currWeight[0]))
+      ws.send(JSON.stringify(dataToSend))
     })
   }, 3000)
 }
